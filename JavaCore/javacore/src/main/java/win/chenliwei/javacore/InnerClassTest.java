@@ -1,6 +1,11 @@
 package win.chenliwei.javacore;
 
-
+/*
+ this demo demonstrate how to use inner anonymous class to extend or implement
+ a super class or interface without using key word extend or implement 
+ 1. war is a object of anonymous class implemented interface WarCar
+ 2. zhangpeng is a object of anonymous class extended class Men
+ */
 interface Car{
 	void run();
 	void stop();
