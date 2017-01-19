@@ -1,4 +1,4 @@
-package win.chenliwei.javacore;
+package win.chenliwei.javacore.proxyclass;
 /*
  * this demo desmontrace how to use proxy class to enhance the function of a existing
  * class without extend, it is also called AOP, and used in java programming such as

@@ -1,4 +1,4 @@
-package win.chenliwei.javacore;
+package win.chenliwei.javacore.basic;
 /*
  * this demo demonstrate why we don't suggest to use switch case clause in the java program
  * because it is so dangerous, consider the output of the below code

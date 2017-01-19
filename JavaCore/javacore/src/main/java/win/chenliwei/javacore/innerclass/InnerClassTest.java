@@ -1,4 +1,4 @@
-package win.chenliwei.javacore;
+package win.chenliwei.javacore.innerclass;
 
 /*
  this demo demonstrate how to use inner anonymous class to extend or implement

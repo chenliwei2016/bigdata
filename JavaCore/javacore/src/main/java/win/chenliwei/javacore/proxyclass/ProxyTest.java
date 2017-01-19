@@ -1,4 +1,4 @@
-package win.chenliwei.javacore;
+package win.chenliwei.javacore.proxyclass;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
