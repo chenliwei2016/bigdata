@@ -4,7 +4,9 @@ import static java.lang.System.out;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
-
+/*
+ * this demo is to demonstrate most usage of String class
+ */
 public class StringTest {
 
 	public static void main(String[] args) throws UnsupportedEncodingException {
