@@ -1,9 +1,8 @@
 package win.chenliwei.javacore.array;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 public class ArrayBasic {
 
@@ -48,9 +47,22 @@ public class ArrayBasic {
 		//Compare Arrays
 		a = Arrays.copyOf(b, b.length);
 		System.out.println(Arrays.equals(a, b));
-		List<int[]> listB = Arrays.asList(b);
-		
+		for(int i = b.length; i>0; i--){
+			a[b.length - i] = b[i-1];
+		}
 		System.out.println(Arrays.equals(a, b));
+		
+		//the following code reverse a Integer array using Collection
+		//Note: don't use int type because it is a primitive type
+		Integer[] arrayInteger1 = new Integer[]{2,3,5,7};
+		List<Integer> arrayIntegerList = Arrays.asList(arrayInteger1);
+		Integer[] arrayInteger2 = Arrays.copyOf(arrayInteger1, arrayInteger1.length);
+		Collections.reverse(arrayIntegerList);
+		arrayInteger1 = arrayIntegerList.toArray(arrayInteger1);
+		System.out.println(Arrays.toString(arrayInteger1));
+		System.out.println(Arrays.toString(arrayInteger2));
+		System.out.println(Arrays.equals(arrayInteger2,arrayInteger1));
+		
 	}
 
 }
