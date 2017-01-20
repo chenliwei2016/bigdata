@@ -1,5 +1,8 @@
 package win.chenliwei.javacore.oobasic;
 
+/*
+ * this demo demonstrate an method of class can visit any object's private variable belong this class
+ */
 public class VisitOtherObjectPrivateVars {
 
 	public static void main(String[] args) {
@@ -14,6 +17,9 @@ public class VisitOtherObjectPrivateVars {
 class Employee{
 	private String name;
 	private int age;
+	public double getSaraly() {
+		return saraly;
+	}
 	private String sex;
 	private double saraly;
 	public Employee(String name, int age, String sex, double saraly) {
@@ -25,5 +31,8 @@ class Employee{
 	}
 	public double seeOthersSalary(Employee employee){
 		return employee.saraly;
+	}
+	public void raiseSalary(double amount){
+		this.saraly += amount;
 	}
 }
