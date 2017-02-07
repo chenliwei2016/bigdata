@@ -1,6 +1,6 @@
 package win.chenliwei.javacore.proxyclass;
 /*
- * this demo desmontrace how to use proxy class to enhance the function of a existing
+ * this demo demonstrate how to use proxy class to enhance the function of a existing
  * class without extend, it is also called AOP, and used in java programming such as
  * transactions, you can add extra logic before or after a method, just like
  * trigger in oracle. now I want to design a Person class with eat function,
