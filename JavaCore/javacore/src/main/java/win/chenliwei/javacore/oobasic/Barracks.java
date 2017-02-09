@@ -1,5 +1,7 @@
 package win.chenliwei.javacore.oobasic;
 
+import java.lang.reflect.*;
+
 /**
  * @author ChenLiwei
  * This class demonstrate how to use Factory method or use Factory design pattern
@@ -10,29 +12,34 @@ package win.chenliwei.javacore.oobasic;
 public class Barracks {
 
 	
-	public static void main(String[] args) {
-		Fighter aBarbarians = WariorFactory.getBarbarians(5);
-		aBarbarians.born();
-		Fighter aArchers = WariorFactory.getArchers(3);
-		aArchers.born();
+	@SuppressWarnings("unused")
+	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException {
+		Barbarians[] barbarians =  WariorFactory.produce(5,3,Barbarians.class);
+		Archers[] archers =  WariorFactory.produce(3,3,Archers.class);
 	}
 
 }
 
 
 class WariorFactory{
-	public static Fighter getBarbarians(int level){
-		return new Barbarians(level);
-	}
-	public static Archers getArchers(int level){
-		return new Archers(level);
-	}
-	public static Giants getGiants(int level){
-		return new Giants(level);
+	
+	@SuppressWarnings("unchecked")
+	public static <T extends Warior> T[]  produce(int level, int scale, Class<T> targetClass) throws InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException{
+		
+		Warior[] wariorArmy = new Warior[scale];
+		for(int i=0; i<scale; i++) {
+			wariorArmy[i] = (Warior) targetClass.newInstance();
+			wariorArmy[i].setProperties(level);
+		}
+		
+		Object rtArray = Array.newInstance(targetClass, scale);
+		System.arraycopy(wariorArmy, 0, rtArray, 0, scale);
+		return (T[])rtArray;
 	}
 }
 
 interface WariorActions{
+	void setProperties(int level) throws InterruptedException;
 	void born();
 	void walk(Object target);
 	void hurt(int hurtPoint);
@@ -46,7 +53,6 @@ class Warior implements WariorActions{
 	// if so, we can just use newInstance() and don't care of parameters
 	private String name;
 	private  String appearance;
-	private  int level;
 	private  int blood;
 	private  int speed;
 	private  int trainTime;
@@ -65,12 +71,6 @@ class Warior implements WariorActions{
 	}
 	protected void setAppearance(String appearance) {
 		this.appearance = appearance;
-	}
-	protected int getLevel() {
-		return level;
-	}
-	protected void setLevel(int level) {
-		this.level = level;
 	}
 	protected int getBlood() {
 		return blood;
@@ -138,6 +138,9 @@ class Warior implements WariorActions{
 	public String toString(){
 		return this.name;
 	}
+	@Override
+	public void setProperties(int level) throws InterruptedException {
+	}
 		
 }
 
@@ -156,46 +159,48 @@ class Fighter extends Warior implements FighterActions{
 
 class Barbarians extends Fighter{
 
-	protected Barbarians(int level) {
-		super();
+	public void setProperties(int level) throws InterruptedException {
 		this.setName("Barbarians");
 		this.setAppearance("Strong man with yellow hair and naked body, his weapon is a sword");
 		this.setBlood(100 * level);
-		this.setLevel(level);
 		this.setDamage(200 * level);
 		this.setSkill("Sword");
 		this.setSpeed(20 * level);
 		this.setTarget("Any");
 		this.setTrainTime(5 * level);
+		Thread.sleep(5*level*100);
+		this.born();
 	}
 }
 
 class Archers extends Fighter{
-	protected Archers(int level) {
-		super();
+
+	public void setProperties(int level) throws InterruptedException{
 		this.setName("Archers");
-		this.setAppearance("Cool women with purple hair and green address, his weapon is a bow and arrows");
+		this.setAppearance("Cool women with purple hair and green skirt, his weapon is a bow and arrows");
 		this.setBlood(200 * level);
-		this.setLevel(level);
 		this.setDamage(300 * level);
 		this.setSkill("Bow and Arrow");
 		this.setSpeed(25 * level);
 		this.setTarget("Any");
 		this.setTrainTime(10 * level);
+		Thread.sleep(10*level*100);
+		this.born();
 	}
 }
 
 class Giants extends Fighter{
-	protected Giants(int level) {
-		super();
+
+	public void setProperties(int level) throws InterruptedException {
 		this.setName("Giants");
 		this.setAppearance("Gints with naked head and yellow eyebrow , his weapon is his own fists");
 		this.setBlood(500 * level);
-		this.setLevel(level);
 		this.setDamage(500 * level);
 		this.setSkill("Fist");
 		this.setSpeed(10 * level);
 		this.setTarget("Defense");
 		this.setTrainTime(20 * level);
+		Thread.sleep(20*level*100);
+		this.born();
 	}
 }
