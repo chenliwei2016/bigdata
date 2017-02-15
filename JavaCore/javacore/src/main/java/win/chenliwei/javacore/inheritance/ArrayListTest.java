@@ -7,6 +7,7 @@
  */
 package win.chenliwei.javacore.inheritance;
 
+
 import java.util.ArrayList;
 
 public class ArrayListTest {
