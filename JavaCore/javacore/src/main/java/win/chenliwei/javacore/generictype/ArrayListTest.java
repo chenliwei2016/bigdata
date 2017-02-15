@@ -5,10 +5,12 @@
  * Comments: it demonstrate the implementation of variable length Array type
  * which also known as Generic Type Array
  */
-package win.chenliwei.javacore.inheritance;
+package win.chenliwei.javacore.generictype;
 
 
 import java.util.ArrayList;
+
+import win.chenliwei.javacore.inheritance.Employee;
 
 public class ArrayListTest {
 
@@ -44,8 +46,6 @@ public class ArrayListTest {
 		System.out.println("after");
 		toString(staff);
 		System.out.println(staff.remove(1)); //another remove function
-		
-		
 		
 	}
 	
