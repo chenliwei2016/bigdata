@@ -1,10 +1,13 @@
 package win.chenliwei.javacore.inheritance;
 
+import java.util.Date;
 
 public class Employee{
 	private String employeeId;
 	private String name;
-	private double salary;
+	private double salary;;
+	private Date hireDay;
+	
 	public Employee(String employeeId, String name, double salary) {
 		super();
 		this.employeeId = employeeId;
@@ -61,6 +64,12 @@ public class Employee{
 	@Override
 	public String toString() {
 		return this.getClass().getName() + " [employeeId=" + employeeId + ", name=" + name + ", salary=" + salary + "]";
+	}
+	public Date getHireDay() {
+		return hireDay;
+	}
+	public void setHireDay(Date hireDay) {
+		this.hireDay = hireDay;
 	}
 	
 }
