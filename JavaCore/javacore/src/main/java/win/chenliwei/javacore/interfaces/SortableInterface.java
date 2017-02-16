@@ -4,7 +4,7 @@
  * SortableInterface.java
  * Comments: it is to demonstrate how to redefine Employee class to suit to sort
  */
-package win.chenliwei.com.javacore.interfaces;
+package win.chenliwei.javacore.interfaces;
 
 import java.util.Arrays;
 
