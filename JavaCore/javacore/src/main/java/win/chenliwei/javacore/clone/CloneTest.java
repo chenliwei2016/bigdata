@@ -27,7 +27,7 @@ public class CloneTest {
 		
 		Employee chenliwei = new Employee("0001","chenliwei",100);
 		
-		//the below is simple copy, essentially points the same object
+		//the below is not copy, essentially points the same object
 		Employee chenliweiCopy = chenliwei;
 		System.out.println(chenliwei.getSalary());
 		System.out.println(chenliweiCopy.getSalary());
