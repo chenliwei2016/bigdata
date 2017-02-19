@@ -9,10 +9,13 @@ package win.chenliwei.javacore.io;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class ByteArrayInputOutputStreamTest {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		String noEncrptedStr = "This is a secret that zhangpeng has an affair with his female boss";
 		ByteArrayInputStream bais = new ByteArrayInputStream(noEncrptedStr.getBytes());
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -21,7 +24,7 @@ public class ByteArrayInputOutputStreamTest {
 		System.out.println(baos.toString());
 	}
 	
-	public static void encrypt(ByteArrayInputStream bais, ByteArrayOutputStream baos,int key){
+	public static void encrypt(InputStream bais, OutputStream baos,int key) throws IOException{
 		int asc2OfByte; // range from 0 to 255
 		while((asc2OfByte = bais.read()) != -1){
 			asc2OfByte = (asc2OfByte > 100) ? (asc2OfByte - key) : (asc2OfByte + key);
