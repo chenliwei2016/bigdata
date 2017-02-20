@@ -1,3 +1,9 @@
+/**
+ * @author: ChenLiwei
+ * 2017-02-17
+ * InnerClassTest.java
+ * Comments: It's to demonstrate inner anonymous class to extend or implement
+ */
 package win.chenliwei.javacore.innerclass;
 
 /*
