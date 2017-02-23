@@ -5,7 +5,7 @@
  * Comments: Besides for generic class, we still have generic method
  * it can be defined both in regular class and generic class
  */
-package win.chenliwei.javacore.generic;
+package win.chenliwei.javacore.generictype;
 
 public class GenericMehodTest {
 

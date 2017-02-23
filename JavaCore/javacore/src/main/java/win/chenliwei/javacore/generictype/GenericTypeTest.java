@@ -7,7 +7,7 @@
  * One can pass the type parameter to the class to replace the generic type
  * This program will define a generic type class 
  */
-package win.chenliwei.javacore.generic;
+package win.chenliwei.javacore.generictype;
 
 /*
  * Generic type usually use upper case single character
