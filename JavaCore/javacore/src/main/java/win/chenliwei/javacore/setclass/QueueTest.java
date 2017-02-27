@@ -22,7 +22,7 @@ public class QueueTest {
 		//Which is high performance and can be resized but cannot be parallel
 		//For example, the below Quene's capacity is only 3, the default is 16 elements
 		Queue<Customer> customer = new ArrayDeque<Customer>(3);
-		
+		//Both ArrayDeque and LinkedList are two-way port list with unlimited length
 		//Now, suppose months later, for some reason we need change the type of customer
 		//So easy, we just change it to another class implemented interface Queue
 		//and the below code totally not changed at all

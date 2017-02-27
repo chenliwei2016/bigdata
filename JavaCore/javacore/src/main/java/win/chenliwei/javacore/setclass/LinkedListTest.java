@@ -6,6 +6,7 @@
  * LinkedList is a ordered List type which allows add/remove items at any location with high efficiency
  * Different with ArrayList, each item has double links points its previous and next item
  * So we call it Two-Way Chain table.
+ * Notice: Both ArrayDeque and LinkedList are two-way port list with unlimited length
  * LinkedList.add() only put the item to the tail of the list. so if we want to insert into any position
  * in the list, we need the help of the Iterator, this way, we can operate items at anywhere
  */
