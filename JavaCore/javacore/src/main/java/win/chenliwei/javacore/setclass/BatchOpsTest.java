@@ -35,6 +35,13 @@ public class BatchOpsTest {
 		a.removeAll(b);
 		System.out.println("*****Subtraction*******");
 		a.forEach(i->{System.out.println(i);});
+		
+		//Suppose we want to judge if one set is a subset of another
+		a.clear(); b.clear();
+		a.add(1);a.add(2);
+		b.add(1);b.add(2);b.add(4);
+		System.out.println("*****Subset*******");
+		System.out.println("A is subset of B: " + b.containsAll(a) );
 	}
 
 }
