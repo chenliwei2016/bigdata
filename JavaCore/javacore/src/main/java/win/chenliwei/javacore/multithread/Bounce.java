@@ -83,20 +83,37 @@ class BounceFrame extends JFrame
     */
    public void addBall()
    {
-      try
-      {
-         Ball ball = new Ball();
-         comp.add(ball);
-
-         for (int i = 1; i <= STEPS; i++)
-         {
-            ball.move(comp.getBounds());
-            comp.paint(comp.getGraphics());
-            Thread.sleep(DELAY);
-         }
-      }
-      catch (InterruptedException e)
-      {
-      }
+      
+      Ball ball = new Ball();
+      comp.add(ball);
+      Runnable r = new RunnableBall(ball,comp);
+      new Thread(r).start();
    }
+}
+
+class RunnableBall implements Runnable{
+	private Ball ball;
+	private Component comp;
+	public static final int STEPS = 1000;
+	public static final int DELAY = 5;
+	
+	public RunnableBall(Ball ball, Component comp) {
+		this.ball = ball;
+		this.comp = comp;
+	}
+
+	@Override
+	public void run() {
+        for (int i = 1; i <= STEPS; i++)
+        {
+           ball.move(comp.getBounds());
+           comp.repaint();
+           try {
+			Thread.sleep(DELAY);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+        }
+	}
+	
 }
