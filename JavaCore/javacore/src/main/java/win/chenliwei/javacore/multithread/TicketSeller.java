@@ -6,41 +6,78 @@
  */
 package win.chenliwei.javacore.multithread;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Queue;
 import java.util.SortedMap;
 
 public class TicketSeller {
 
+	static Queue<Seat> seats = new ArrayDeque<>();
+	static TrainShift trainShift = new TrainShift("G9999", new Station("BeiJing", new Date(), 0), new Station("ShangHai", new Date(), 0), null);
 	public static void main(String[] args) {
+		//open 100 seats
+		for(int i = 1; i < 6; i++) {
+			switch(i % 5){
+			case 0:	seats.add(new Seat(1,1,SeatNumber.F));break;
+			case 1: seats.add(new Seat(1,1,SeatNumber.A));break;
+			case 2: seats.add(new Seat(1,1,SeatNumber.B));break;
+			case 3: seats.add(new Seat(1,1,SeatNumber.C));break;
+			case 4: seats.add(new Seat(1,1,SeatNumber.D));break;
+			}
+		}
+		
+		//suppose 200 passengers
+		List<Passenger> passengers = new ArrayList<>(7);
+		for(int i = 1; i < 8; i++) passengers.add(new Passenger("passenger"+i, "3201234343434344334"+i));
+		
+		passengers.forEach(p -> {sell(p);});
+	}
+	
+	public static void sell(Passenger p){
+		Runnable r = new Runnable(){
 
+			@Override
+			public void run() {
+				if(! seats.isEmpty()){
+					Seat seat = seats.poll();
+					Ticket ticket = new Ticket(p, seat, trainShift);
+					ticket.print();
+				} else {
+					System.out.println("All the tickets sold out");
+				}
+			}
+			
+		};
+		new Thread(r).start();
 	}
 
 }
 
 class Ticket{
-	private Passager passager;
+	private Passenger passenger;
 	private Seat seat;
 	private TrainShift trainShift;
 	
-	public Ticket(Passager passager, Seat seat, TrainShift trainShift) {
-		this.passager = passager;
+	public Ticket(Passenger passenger, Seat seat, TrainShift trainShift) {
+		this.passenger = passenger;
 		this.seat = seat;
 		this.trainShift = trainShift;
 	}
 
-	public void print(){
-		System.out.println("-------------Train Ticket-----------");
-		System.out.println(trainShift.toString() + seat.toString());
-		System.out.println(passager.toString());
+	public  void  print(){
+		System.out.println("-------------Train Ticket-----------\n" + trainShift.toString() + seat.toString() + "\n" + passenger.toString());
 	}
 	
 }
 
-class Passager{
+class Passenger{
 	private String name;
 	private String id;
-	public Passager(String name, String id) {
+	public Passenger(String name, String id) {
 		this.name = name;
 		this.id = id;
 	}
@@ -51,8 +88,8 @@ class Passager{
 		return id;
 	}
 	@Override
-	public String toString() {
-		return name + id.substring(0, 5) + "******" + id.substring(10);
+	public  String toString() {
+		return name + "     " +  id.substring(0, 5) + "******" + id.substring(10);
 	}
 }
 
@@ -90,7 +127,7 @@ class TrainShift{
 		this.passStations.put(key, station);
 	}
 	@Override
-	public String toString() {
+	public  String toString() {
 		Calendar c = Calendar.getInstance();
 		c.setTime(departCity.getArriveTime());
 		c.add(Calendar.MINUTE, departCity.getStopMinutes());
@@ -134,15 +171,15 @@ enum SeatNumber{A,B,C,D,F}
 class Seat{
 	private int carriage;
 	private int array;
-	private char seat;
-	public Seat(int carriage, int array, char seat) {
+	private SeatNumber seat;
+	public Seat(int carriage, int array, SeatNumber seatNumber) {
 		this.carriage = carriage;
 		this.array = array;
-		this.seat = seat;
+		this.seat = seatNumber;
 	}
 	
 	@Override
-	public String toString() {
+	public   String toString() {
 		return "Seat: carriage=" + carriage + "  array=" + array + "  seat=" + seat;
 	}
 	
