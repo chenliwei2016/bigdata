@@ -11,12 +11,11 @@
  */
 package win.chenliwei.javacore.multithread;
 
-import java.util.Date;
+import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
@@ -48,8 +47,8 @@ public class CountDownLatchTest {
 
 			@Override
 			public RedPacket call() throws Exception {
-				System.out.println(owner + "'s red packet will send out in 3 second, prepare!");
-				Thread.sleep(3000);
+				System.out.println(owner + "'s red packet will send out in 1 second, Ready!");
+				Thread.sleep(1000);
 				RedPacket packet = new RedPacket(cdl, owner, amount, share);
 				cdl.countDown();
 				return packet;
@@ -57,13 +56,15 @@ public class CountDownLatchTest {
 			
 		}
 		try {
-			packet = new FutureTask<RedPacket>(new preparePacket(waitRedPacket,"chenliwei",100,4)).get();
+			FutureTask<RedPacket> prepare = new FutureTask<>(new preparePacket(waitRedPacket,"chenliwei",100,4));
+			new Thread(prepare).start();
+			packet = prepare.get();
 		} catch (ExecutionException e) {
 			e.printStackTrace();
 		}
 		waitRedPacket.await();
 		current = System.currentTimeMillis();
-		CountDownLatch  waitRobOut = new CountDownLatch(packet.getShare());
+		CountDownLatch  waitRobOut = new CountDownLatch(wechat.size());
 		class RobPacket implements Runnable{
 			private CountDownLatch cdl;
 			private RedPacket packet;
@@ -77,12 +78,12 @@ public class CountDownLatchTest {
 
 			@Override
 			public void run() {
-				packet.luckyHand(name);
 				try {
-					Thread.sleep((long)(3000 * Math.random()));
+					Thread.sleep((long)(2000 * Math.random()));
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+				packet.luckyHand(name);
 				cdl.countDown();
 			}
 		}
@@ -99,12 +100,12 @@ class RedPacket{
 	private String owner;
 	private double amount;
 	private int share;
-	private volatile SortedMap<Date,String> detail;
+	private ConcurrentSkipListMap<Integer,String> detail;
 	public RedPacket(CountDownLatch cdl,String owner, double amount, int share) throws InterruptedException {
 		this.owner = owner;
 		this.amount = amount;
 		this.share = share;
-		this.detail = new TreeMap<Date,String>();
+		this.detail = new ConcurrentSkipListMap<Integer,String>();
 	}
 	
 	public String getOwner() {
@@ -117,19 +118,20 @@ class RedPacket{
 
 	public void getDetail() {
 		System.out.println("Look lucky hand of " + owner + "'s red packet");
-		detail.forEach((k,v)->{System.out.println(v);});
+		detail.forEach((k,v) -> {System.out.println(v);});
 	}
 	
 	public synchronized void luckyHand(String name){
 		if(share == 0) return;
+		DecimalFormat  df = new DecimalFormat("######0.00"); 
 		if(share == 1) {
-			detail.put(new Date(), name + " got $" + amount);
+			detail.put(share, name + " got $" + df.format(amount));
 			share = 0;
 			amount = 0;
 		}else{
 			double hand = amount * Math.random();
 			if (hand < 0.01) hand = 0.01;
-			detail.put(new Date(), name + " got $" + hand);
+			detail.put(share, name + " got $" + df.format(hand));
 			amount -= hand;
 			share--;
 		}
