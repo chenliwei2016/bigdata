@@ -16,60 +16,23 @@
  */
 package win.chenliwei.javacore.multithread;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.omg.CORBA.IntHolder;
-
 public class AtomicIntegerTest {
-	private static IntHolder ordinaryInteger = new IntHolder(0);
+	private static int ordinaryInteger = 0;
 	private static AtomicInteger atomicInteger = new AtomicInteger(0);
 
 	public static void main(String[] args) {
 		System.out.println("Let 1000 threads increment an integer 10000 times simultaneously.");
-		List<Thread> threadlist = new ArrayList<Thread>();
-		for(int i= 0; i < 1000; i++) threadlist.add(new Thread(new IntegerIncrement(ordinaryInteger)));
-		threadlist.forEach(t -> {t.start();});
-		threadlist.forEach(t -> {try {
-			t.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}});
-		// after 1000 * 10000 self increment, the final value should be 10,000,000
-		System.out.println("IntHolder: 1000 * 10000 should be 10,000,000, but atually: " + ordinaryInteger.value);
+		Integer[] threads  = new Integer[10000000];
+		Arrays.fill(threads, 0);
+		Arrays.asList(threads).parallelStream().forEach(i->{ordinaryInteger++;});
 		
-		threadlist = new ArrayList<Thread>();
-		for(int i= 0; i < 1000; i++) threadlist.add(new Thread(new AtomicIntegerIncrement(atomicInteger)));
-		threadlist.forEach(t -> {t.start();});
-		threadlist.forEach(t -> {try {
-			t.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}});
+		// after 1000 * 10000 self increment, the final value should be 10,000,000
+		System.out.println("int: 1000 * 10000 should be 10,000,000, but atually: " + ordinaryInteger);
+		Arrays.asList(threads).parallelStream().forEach(i->{atomicInteger.incrementAndGet();});
 		// after 1000 * 10000 self increment, the final value should be 10,000,000
 		System.out.println("AtomicInteger: 1000 * 10000 should be 10,000,000, and atually it is exact: " + atomicInteger);
-		
 	}
-	private static class IntegerIncrement implements Runnable{
-		private IntHolder ordinaryInteger;
-		public IntegerIncrement(IntHolder ordinaryInteger) {
-			this.ordinaryInteger = ordinaryInteger;
-		}
-		@Override
-		public void run() {
-			for(int i=0;i<10000;i++)ordinaryInteger.value++;
-		}
-	}
-	private static class AtomicIntegerIncrement implements Runnable{
-		private AtomicInteger atomicInteger;
-		public AtomicIntegerIncrement(AtomicInteger atomicInteger) {
-			this.atomicInteger = atomicInteger;
-		}
-		@Override
-		public void run() {
-			for(int i=0;i<10000;i++)atomicInteger.incrementAndGet();
-		}
-	}
-	
 }
