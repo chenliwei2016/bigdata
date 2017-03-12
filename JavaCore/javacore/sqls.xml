@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configuration [
+	<!ELEMENT Configuration (database,SQL*)>
+	<!ELEMENT database (username,password,url)>
+	<!ELEMENT username (#PCDATA)>
+	<!ELEMENT password (#PCDATA)>
+	<!ELEMENT url (#PCDATA)>
+	<!ELEMENT SQL (SQLID,SQLTEXT)>
+	<!ELEMENT SQLID (#PCDATA)>
+	<!ELEMENT SQLTEXT (#PCDATA)>
+]>
+<Configuration>
+	<database>
+		<username>test</username>
+		<password>test</password>
+		<url>jdbc:derby://localhost:1527/javacore</url>
+	</database>
+	<SQL>
+		<SQLID>S1</SQLID>
+		<SQLTEXT>insert into greetings values('XML S1')</SQLTEXT>
+	</SQL>
+	<SQL>
+		<SQLID>S2</SQLID>
+		<SQLTEXT>insert into greetings values('XML S2')</SQLTEXT>
+	</SQL>
+	<SQL>
+		<SQLID>S3</SQLID>
+		<SQLTEXT>insert into greetings values('XML S3')</SQLTEXT>
+	</SQL>
+	<SQL>
+		<SQLID>SelectGreetings</SQLID>
+		<SQLTEXT>select * from greetings where message like 'XML%'</SQLTEXT>
+	</SQL>
+</Configuration>
