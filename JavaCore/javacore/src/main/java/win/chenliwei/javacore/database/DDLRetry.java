@@ -21,34 +21,45 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import oracle.jdbc.OracleTypes;
-import win.chenliwei.javacore.exception.LoggerTest;
 
 public class DDLRetry {
-	private static final Logger logger = LoggerFactory.getLogger(LoggerTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(DDLRetry.class);
 	public static void main(String[] args) {
 		String URL ="";
-		java.util.Date workingDate = new GregorianCalendar(2017,3,13,0,0,0).getTime() ;
+		if(args.length != 2) {
+			System.out.println("This program needs 2 parameters: date yyyy-mm-dd and e/p for extend/purge");
+			System.exit(0);
+		}
+		String[] pDate = args[0].split("-");
+		java.util.Date workingDate = new GregorianCalendar(Integer.parseInt(pDate[0]),Integer.parseInt(pDate[1])-1,Integer.parseInt(pDate[2]),0,0,0).getTime() ;
 		ConcurrentSkipListSet<String> tenancies = new ConcurrentSkipListSet<String>();
 		tenancies.add("CN000");tenancies.add("DA001");tenancies.add("DA002");tenancies.add("DA003");
-		tenancies.parallelStream().forEach(tenancy->{
-			Connection conn = getConnDB(URL); 
-			extend(conn,tenancy,new java.sql.Date(workingDate.getTime()),10);
-			try {
-			conn.close();
-			} catch (SQLException e) {
-			e.printStackTrace();
-		}});
-		//Wait for a while
-		java.util.Date dateBefore = new GregorianCalendar(2017,3,23,0,0,0).getTime() ;
-		tenancies.parallelStream().forEach(tenancy->{
-			Connection conn = getConnDB(URL); 
-			purge(conn, tenancy, new java.sql.Date(dateBefore.getTime()));
-			try {
+		tenancies.add("DB001");tenancies.add("DB002");tenancies.add("DB003");tenancies.add("DB004");tenancies.add("DB005");
+		tenancies.add("DB006");tenancies.add("DB007");tenancies.add("DB008");tenancies.add("DB009");tenancies.add("DB010");
+		if(args[1].equalsIgnoreCase("e")){
+			tenancies.parallelStream().forEach(tenancy->{
+				Connection conn = getConnDB(URL); 
+				extend(conn,tenancy,new java.sql.Date(workingDate.getTime()),10);
+				try {
 				conn.close();
-			} catch (SQLException e) {
+				} catch (SQLException e) {
 				e.printStackTrace();
+			}});
+		} else {
+			if(!args[1].equalsIgnoreCase("p")){
+				System.out.println("cannot recognize " + args[1] + ", either e or p");
+				System.exit(0);
 			}
-		});
+			tenancies.parallelStream().forEach(tenancy->{
+				Connection conn = getConnDB(URL); 
+				purge(conn, tenancy, new java.sql.Date(workingDate.getTime()+1));
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			});
+		}
 	}
 	
 	private static synchronized Connection getConnDB(String URL){
