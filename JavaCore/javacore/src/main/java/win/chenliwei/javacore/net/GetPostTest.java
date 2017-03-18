@@ -14,27 +14,29 @@
 package win.chenliwei.javacore.net;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.Scanner;
-
-import com.sun.org.apache.xml.internal.security.utils.Base64;
 
 public class GetPostTest {
 
-	public static void main(String[] args) {
-		String urlStr = "http://www.chenliwei.win/formdemoreply.asp";
+	public static void main(String[] args) throws IOException {
+		String urlStr = "http://www.chenliwei.site/formdemoreply.php";
 		System.out.println("*****************************************");
 		System.out.println("the reply from server:");
-		doGet(urlStr,"chenliwei","chenliwei@chenliwei.win");
+		//doGet(urlStr,"chenliwei","chenliwei@chenliwei.win");
+		doPost(urlStr,"chenliwei","chenliwei@chenliwei.win");
 		System.out.println("*****************************************");
 	}
 	public static void doGet(String urlStr,String name,String email){
 		try {
-			URL url = new URL(urlStr);
+			URL url = new URL(urlStr +"?name=" + name + "&email=" + email);
 			URLConnection conn = url.openConnection();
-			conn.setRequestProperty("Authorization", "Basic " + Base64.encode((name + ":" + email).getBytes()));
-			try(Scanner in = new Scanner(conn.getInputStream())){
+		try(Scanner in = new Scanner(conn.getInputStream())){
 				while(in.hasNext()) System.out.println(in.nextLine());
 			}
 			
@@ -42,5 +44,29 @@ public class GetPostTest {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void doPost(String urlStr,String name,String email) throws IOException{
 
+			URL url = new URL(urlStr);
+			URLConnection conn = url.openConnection();
+			conn.setDoOutput(true);
+			try(PrintWriter out = new PrintWriter(conn.getOutputStream())){
+				out.println("name=" + URLEncoder.encode(name,"UTF-8") + "&email=" + URLEncoder.encode(email,"UTF-8") );
+			}
+			StringBuilder response = new StringBuilder();
+			try(Scanner in = new Scanner(conn.getInputStream())){
+				while(in.hasNext()) {
+					response.append(in.nextLine());
+					response.append("\n");
+				}
+			} catch(IOException e){
+				if(!(conn instanceof HttpURLConnection)) throw e;
+				InputStream err = ((HttpURLConnection)conn).getErrorStream();
+				if(err == null) throw e;
+				Scanner in = new Scanner(err);
+				response.append(in.nextLine());
+				in.close();
+			}
+			System.out.println(response);
+	}
 }
