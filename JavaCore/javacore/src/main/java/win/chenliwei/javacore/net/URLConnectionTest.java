@@ -21,6 +21,7 @@ import java.util.Scanner;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
+@SuppressWarnings("restriction")
 public class URLConnectionTest {
 
 	public static void main(String[] args) {
