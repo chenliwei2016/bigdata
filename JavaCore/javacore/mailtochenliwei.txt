@@ -1,0 +1,11 @@
+lovejoy.chen@gmail.com
+chenliwei@hpe.com
+Greetings from JavaMail API
+Hello, LiWei
+
+This is a message from lovejoy001, we could say the JavaMail works
+when you see this message.
+
+Have a good day.
+
+Yours.
