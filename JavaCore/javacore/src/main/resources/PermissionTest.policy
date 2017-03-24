@@ -1,0 +1,4 @@
+grant
+{
+	permission win.chenliwei.javacore.security.WordCheckPermission "sex,drugs,C++","avoid";
+};
