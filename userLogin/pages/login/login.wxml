@@ -1,0 +1,18 @@
+<!--pages/login/login.wxml-->
+
+<view class="usermotto">
+    <text>You haven't login in!</text>
+</view>
+
+<text>please input username here</text>
+<view class="inputframe">
+    <input type="text" bindinput="inputuser" placeholder="username" />
+</view>
+
+
+<text>please input password here</text>
+<view class="inputframe">
+    <input type="text" bindinput="inputpasswd" password="true" />
+</view>
+
+<button type="primary" size="mini" bindtap="loginClick"> login </button>
