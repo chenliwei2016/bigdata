@@ -9,7 +9,7 @@
 </head>
 <body>
 <div id="global">
-	<form action="product_save.action" method="post">
+	<form action="product_save.enhance" method="post">
 		<fieldset>
 			<legend>Add a product</legend>
 			<p>
