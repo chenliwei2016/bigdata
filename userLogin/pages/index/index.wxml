@@ -1,0 +1,12 @@
+<!--index.wxml-->
+<view class="usermotto">
+  <text>Welcome to chenliwei.site</text>
+</view>
+
+<view class="usermotto">
+  <text>This is to test the login process</text>
+</view>
+
+<view class="usermotto">
+<button type="primary" size="mini" bindtap="loginClick"> login </button>
+</view>

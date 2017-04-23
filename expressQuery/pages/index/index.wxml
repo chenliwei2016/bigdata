@@ -1,0 +1,16 @@
+
+<!--index.wxml-->
+<view class="usermotto">
+  <text class="user-motto">{{motto}}</text>
+</view>
+<view class="section">
+  <input placeholder="输入快递运单号" bindinput="inputnu" />
+</view>
+<view class="primarybutton">
+  <button type="primary" size="mini" bindtap="primary"> primary </button>
+</view>
+<scroll-view scroll-y="true" style="height: 200px;">
+  <view wx:for="{{deliveryInfo.data}}">
+    {{item.context}} {{item.time}}
+  </view>
+</scroll-view>
