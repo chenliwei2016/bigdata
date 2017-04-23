@@ -27,7 +27,7 @@ public class MobileFromQuery {
 			e.printStackTrace();
 			return "server error";
 		}
-		String url = "jdbc:ucanaccess://C:/Users\\chenliwe\\Downloads\\MobileBelongsLocationData.mdb";
+		String url = "jdbc:ucanaccess://C:/Users\\leavy\\Downloads\\MobileBelongsLocationData.mdb";
 		try {
 			Connection conn = DriverManager.getConnection(url);
 			ResultSet rs = conn.createStatement().executeQuery("select MobileArea from Dm_Mobile where MobileNumber = '" + phonenumber.substring(0,7) + "'");
