@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import win.chenliwei.simplemvc.enhance.controller.Controller;
 import win.chenliwei.simplemvc.enhance.controller.InputProductController;
+import win.chenliwei.simplemvc.enhance.controller.QuerySalaryController;
 import win.chenliwei.simplemvc.enhance.controller.SaveProductController;
 
 public class DispatcherServlet extends HttpServlet {
@@ -40,6 +41,11 @@ public class DispatcherServlet extends HttpServlet {
 		} else if(action.equalsIgnoreCase("product_save.enhance")){
 			Controller saveProduct = new SaveProductController();
 			dispatchUri = saveProduct.handleRequest(req, resp);
+		}else if(action.equalsIgnoreCase("QueryInput.enhance")){
+			dispatchUri = "/WEB-INF/SalaryForm.jsp";
+		}else if(action.equalsIgnoreCase("QuerySalary.enhance")){
+			Controller querySalary = new QuerySalaryController();
+			dispatchUri = querySalary.handleRequest(req, resp);
 		}
 		
 		if(dispatchUri != null){
