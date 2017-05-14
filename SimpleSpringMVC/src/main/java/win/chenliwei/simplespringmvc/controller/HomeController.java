@@ -1,4 +1,4 @@
-package win.chenliwei.simplespringmvc;
+package win.chenliwei.simplespringmvc.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

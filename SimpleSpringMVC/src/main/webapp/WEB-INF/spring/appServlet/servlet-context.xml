@@ -21,8 +21,8 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="win.chenliwei.simplespringmvc" />
-	
+	<context:component-scan base-package="win.chenliwei.simplespringmvc.controller" />
+	<context:component-scan base-package="win.chenliwei.simplespringmvc.service" />
 	
 	
 </beans:beans>
