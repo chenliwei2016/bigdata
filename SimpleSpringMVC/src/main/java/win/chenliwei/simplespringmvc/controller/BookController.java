@@ -77,6 +77,8 @@ public class BookController {
 	@RequestMapping(value="/book_save")
 	public String saveBook(Book book){
 		logger.info("/book_save");
+		Category cate = bookService.getCategory(book.getCategory().getId());
+		book.setCategory(cate);
 		bookService.update(book);
 		return "redirect:/book_list";
 	}
