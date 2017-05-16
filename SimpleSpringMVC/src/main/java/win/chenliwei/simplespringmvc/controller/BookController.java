@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import win.chenliwei.simplespringmvc.model.Book;
 import win.chenliwei.simplespringmvc.model.Category;
@@ -56,7 +57,15 @@ public class BookController {
 		return "BookList";
 	}
 	
-
+	@RequestMapping(value="/book_list.jason")
+	@ResponseBody
+	public List<Book> listBookJason(Model model){
+		logger.info("/book_list.jason");
+		List<Book> books = bookService.getAllBooks();
+		model.addAttribute("books",books);
+		return books;
+	}
+	
 	@RequestMapping(value="/book_delete/{id}")
 	public String deleteBook(@ModelAttribute Book book, @PathVariable Long id){
 		logger.info("/book_delete");
