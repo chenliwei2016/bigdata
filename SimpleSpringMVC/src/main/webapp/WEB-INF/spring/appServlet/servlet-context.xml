@@ -42,10 +42,19 @@
             </beans:list>    
         </beans:property>   
 	</beans:bean> -->
-	<beans:bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+<!-- 	<beans:bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
 		<beans:property name="formatters">
             <beans:list>    
-                <beans:bean  class="win.chenliwei.simplespringmvc.formatter.DateFormatter">  <!-- Convert from string to date -->  
+                <beans:bean  class="win.chenliwei.simplespringmvc.formatter.DateFormatter">  Convert from string to date  
+            		<beans:constructor-arg type="java.lang.String" value="yyyy-MM-dd"></beans:constructor-arg>
+            	</beans:bean>
+            </beans:list>    
+        </beans:property>   
+	</beans:bean> -->
+	<beans:bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<beans:property name="formatterRegistrars">
+            <beans:list>    
+                <beans:bean  class="win.chenliwei.simplespringmvc.formatter.MyFormatterRegistrar">  <!--Convert from string to date --> 
             		<beans:constructor-arg type="java.lang.String" value="yyyy-MM-dd"></beans:constructor-arg>
             	</beans:bean>
             </beans:list>    

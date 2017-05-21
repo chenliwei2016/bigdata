@@ -13,7 +13,7 @@ import win.chenliwei.simplespringmvc.model.Employee;
 
 @Controller
 public class EmployeeController {
-	private static final Log logger = LogFactory.getLog(BookController.class);
+	private static final Log logger = LogFactory.getLog(EmployeeController.class);
 	
 	@RequestMapping(value="employee_input")
 	public String inputEmployee(Model model){
