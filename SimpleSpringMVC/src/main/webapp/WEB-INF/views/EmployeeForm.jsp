@@ -24,6 +24,9 @@
 		<fieldset>
 			<legend>Add an Employee</legend>
 			<p>
+				<form:errors path="name" cssClass="error" />
+			</p>
+			<p>
 				<label for="name"> Name: </label>
 				<form:input id="name" path="name"/>
 			</p>

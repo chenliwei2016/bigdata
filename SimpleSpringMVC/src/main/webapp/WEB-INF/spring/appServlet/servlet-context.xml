@@ -11,7 +11,8 @@
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
-<mvc:annotation-driven conversion-service="conversionService">  
+<!-- <mvc:annotation-driven conversion-service="conversionService">   -->
+<mvc:annotation-driven>
     <!-- 启动JSON格式的配置 -->  
     <mvc:message-converters>    
     <beans:bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">  
@@ -32,7 +33,9 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
+		<beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<beans:property name="basename" value="/resources/messages" />
+	</beans:bean>
 <!-- 	<beans:bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
 		<beans:property name="converters">
             <beans:list>    

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import win.chenliwei.simplespringmvc.model.Employee;
+import win.chenliwei.simplespringmvc.validator.EmployeeValidator;
 
 @Controller
 public class EmployeeController {
@@ -25,6 +26,8 @@ public class EmployeeController {
 	@RequestMapping(value="employee_save")
 	public String saveEmployee(@ModelAttribute Employee employee,BindingResult bindingResult, Model model){
 		logger.info("invoke employee_save");
+		EmployeeValidator employeeValidator = new EmployeeValidator();
+		employeeValidator.validate(employee, bindingResult);
 		if(bindingResult.hasErrors()){
 			FieldError fieldError = bindingResult.getFieldError();
 			logger.info(fieldError.getCode() + ":" + fieldError.getField());
