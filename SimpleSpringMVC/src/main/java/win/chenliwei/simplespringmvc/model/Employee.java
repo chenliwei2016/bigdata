@@ -2,8 +2,11 @@ package win.chenliwei.simplespringmvc.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Employee {
 	private String name;
+	@DateTimeFormat(pattern="yyyy-mm-dd")
 	private Date birthday;
 	public Employee() {
 	}
