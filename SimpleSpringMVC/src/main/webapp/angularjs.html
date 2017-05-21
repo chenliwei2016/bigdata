@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="resources/angular.min.js"></script>
+</head>
+<body data-ng-app="">
+
+<div  data-ng-init="name='John'">
+	<hr>
+	<h1>	AngularJS 扩展了 HTML</h1>
+	<p>AngularJS 通过 ng-directives 扩展了 HTML。</p>
+	<p>ng-app 指令定义一个 AngularJS 应用程序。</p>
+	<p>ng-model 指令把元素值（比如输入域的值）绑定到应用程序。</p>
+	<p>ng-bind 指令把应用程序数据绑定到 HTML 视图。</p>
+	<p>HTML5 允许扩展的（自制的）属性，以 data- 开头。</p>
+	<p>AngularJS 属性以 ng- 开头，但是您可以使用 data-ng- 来让网页对 HTML5 有效。</p>
+	<input type="text" data-ng-model="name"></input>
+	<h1>您输入的是（表达式）：{{name}}</h1>
+	<h1>您输入的是（ng-bind）：<span data-ng-bind="name"></span></h1>
+	<p>ng-app 指令告诉 AngularJS，&lt;div&gt; 元素是 AngularJS 应用程序 的"所有者"。</p>
+	<p>ng-model 指令把输入域的值绑定到应用程序变量 name。</p>
+	<p>ng-bind 指令把应用程序变量 name 绑定到某个段落的 innerHTML。</p>
+	<hr>
+	
+	ng-init 指令初始化 AngularJS 应用程序变量, 我们可以设置name变量的初始值为John
+	<p>
+	<p>
+	<hr>
+	
+	
+</div>
+	<h1>AngularJS 表达式</h1>
+	<p>AngularJS 表达式写在双大括号内：{ { expression } }。</p>
+	<p>AngularJS 表达式把数据绑定到 HTML，这与 ng-bind 指令有异曲同工之妙。</p>
+	<p>AngularJS 将在表达式书写的位置"输出"数据。</p>
+	<p>AngularJS 表达式 很像 JavaScript 表达式：它们可以包含文字、运算符和变量。</p>
+	<p>实例 { { 5 + 5 } } 或 { { firstName + " " + lastName } }</p>
+<div data-ng-init="firstName='liwei';lastName='chen'">
+     <p>我的第一个表达式： {{ 5 + 5 }}</p>
+     <p>我的名字： {{ lastName + firstName }}</p>
+</div>
+</body>
+</html>
