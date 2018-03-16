@@ -136,12 +136,27 @@
     <artifactId>jackson-mapper-lgpl</artifactId>  
     <version>1.9.4</version>  
 </dependency>     
-
+<dependency>  
+            <groupId>net.glxn</groupId>  
+            <artifactId>qrgen</artifactId>  
+            <version>1.2</version>  
+        </dependency>
+<dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.3</version>
+        </dependency>
 <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>2.6</version>
-        </dependency>   
+        </dependency> 
+        <dependency>
+    <groupId>dom4j</groupId>
+    <artifactId>dom4j</artifactId>
+    <version>1.6.1</version>
+</dependency>
+          
 	</dependencies>
     <build>
         <plugins>
